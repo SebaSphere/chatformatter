@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "chatformatter",
+  "version": "${version}",
+  "name": "ChatFormatter",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/chatformatter/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.sebastianb.chatformatter.ChatFormatter"
+    ]
+  },
+  "mixins": [
+    "chatformatter.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "minecraft": ""
+  }
+}
