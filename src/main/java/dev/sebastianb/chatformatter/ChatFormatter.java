@@ -7,6 +7,6 @@ import net.minecraft.server.PlayerManager;
 public class ChatFormatter implements ModInitializer {
     @Override
     public void onInitialize() {
-
+        
     }
 }
