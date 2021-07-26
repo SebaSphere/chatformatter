@@ -1,14 +1,10 @@
 package dev.sebastianb.chatformatter.mixin;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
+import dev.sebastianb.chatformatter.ChatFormatter;
 import net.minecraft.client.option.ChatVisibility;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.ServerConfigHandler;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -37,7 +33,7 @@ public class MixinServerPlayerEntity {
     private void sendMessage(Text message, MessageType type, UUID sender, CallbackInfo ci) {
         String playerName = server.getPlayerManager().getPlayer(sender).getName().getString();
         String playerMessage = message.getString().replaceAll("<" + playerName + "> ", "");
-        Text newMessage = Text.of("<" + playerName + ">:<" + playerMessage + ">");
+        Text newMessage = Text.of(String.format(ChatFormatter.getChatFormat(), playerName, playerMessage));
         if (this.acceptsMessage(type)) {
             this.networkHandler.sendPacket(new GameMessageS2CPacket(newMessage, type, sender), (future) -> {
                 if (!future.isSuccess() && (type == MessageType.GAME_INFO || type == MessageType.SYSTEM) && this.acceptsMessage(MessageType.SYSTEM)) {
